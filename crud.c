@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Consts */
+#define MAX_LIMIT 60
+
 /* functions */
 void menu();
 
 /* vars */
 char option;
 char *filename = "database.txt";
-char new_entry[61];
-/* File config ma man */
-FILE *fp = fopen(filename, "w");
+char new_entry[MAX_LIMIT];
 
 /* Start the main menu */
 void menu(){
@@ -29,7 +30,11 @@ void menu(){
         case 'c':
             /* Create some entry on the db */
             printf("Type some shit as a new entry:");
-            scanf("%s", &new_entry);
+
+            /* File config ma man */
+            FILE *fp = fopen(filename, "w");
+
+            fgets(new_entry, MAX_LIMIT, stdin);
             fprintf(fp,"%s\n",new_entry);
 
             printf("Entry added on the db\n");
@@ -56,6 +61,9 @@ void menu(){
 
 /* Std func, where shit happens */
 int main(){
+
+    /* File config ma man */
+    FILE *fp = fopen(filename, "w");
 
     if (fp == NULL){
         printf("Error opening the file %s", filename);
